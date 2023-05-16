@@ -1,3 +1,6 @@
 [submodule "raha"]
 	path = raha
 	url = git@github.com:BigDaMa/raha.git
+[submodule "uni-detect"]
+	path = uni-detect
+	url = git@github.com:LUH-DBS/Uni-Detect.git
