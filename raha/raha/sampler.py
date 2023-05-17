@@ -1,12 +1,29 @@
 import os
+import datetime
+import pickle
+from pathlib import Path
 
 from raha import raha
 from raha.raha import Detection
 
 
 class Sampler(Detection):
-    def save_state(self, state):
-        pass
+
+    def save_state(self, d):
+        pickle_path = Path(d.results_folder).resolve().joinpath(f"state").resolve()
+        if not pickle_path.exists():
+            pickle_path.mkdir()
+
+        pickle_path = pickle_path.joinpath(str(datetime.datetime.now()))
+        pickle_path.touch()
+        with pickle_path.open(mode='wb') as file:
+            pickle.dump(d, file)
+        if self.VERBOSE:
+            print("------------------------------------------------------------------------\n"
+                  "------------------------------Stored state------------------------------\n"
+                  "------------------------------------------------------------------------")
+
+
     def run(self, dd):
         """
         This method runs Raha on an input dataset to detection data errors.
@@ -35,14 +52,19 @@ class Sampler(Detection):
             print("------------------------------------------------------------------------\n"
                   "-------------Iterative Clustering-Based Sampling and Labeling-----------\n"
                   "------------------------------------------------------------------------")
+
+
         while len(d.labeled_tuples) < self.LABELING_BUDGET:
             self.sample_tuple(d)
-            if d.has_ground_truth:
-                self.label_with_ground_truth(d)
-            # else:
-            #   In this case, user should label the tuple interactively as shown in the Jupyter notebook.
+            d.labeled_tuples[d.sampled_tuple] = 0
+            for j in range(d.dataframe.shape[1]):
+                cell = (d.sampled_tuple, j)
+                d.labeled_cells[cell] = [0]
             if self.VERBOSE:
                 print("------------------------------------------------------------------------")
+
+        print(d.labeled_tuples)
+        self.save_state(d)
 
 ########################################
 
