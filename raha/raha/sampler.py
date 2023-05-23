@@ -23,7 +23,6 @@ class Sampler(Detection):
                   "------------------------------Stored state------------------------------\n"
                   "------------------------------------------------------------------------")
 
-
     def run(self, dd):
         """
         This method runs Raha on an input dataset to detection data errors.
@@ -53,7 +52,6 @@ class Sampler(Detection):
                   "-------------Iterative Clustering-Based Sampling and Labeling-----------\n"
                   "------------------------------------------------------------------------")
 
-
         while len(d.labeled_tuples) < self.LABELING_BUDGET:
             self.sample_tuple(d)
             d.labeled_tuples[d.sampled_tuple] = 0
@@ -66,6 +64,7 @@ class Sampler(Detection):
         print(d.labeled_tuples)
         self.save_state(d)
 
+
 ########################################
 
 
@@ -74,8 +73,10 @@ if __name__ == "__main__":
     dataset_name = "flights"
     dataset_dictionary = {
         "name": dataset_name,
-        "path": os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "dirty.csv")),
-        "clean_path": os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "clean.csv"))
+        "path": os.path.abspath(
+            os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "dirty.csv")),
+        "clean_path": os.path.abspath(
+            os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "clean.csv"))
     }
     app = Sampler()
     app.VERBOSE = True
