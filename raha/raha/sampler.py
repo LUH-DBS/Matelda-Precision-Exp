@@ -9,12 +9,13 @@ from raha.raha import Detection
 
 class Sampler(Detection):
 
-    def save_state(self, d):
+    def save_state(self, d, name=None):
         pickle_path = Path(d.results_folder).resolve().joinpath(f"state").resolve()
         if not pickle_path.exists():
             pickle_path.mkdir()
 
-        pickle_path = pickle_path.joinpath(str(datetime.datetime.now()))
+        file_name = str(datetime.datetime.now()) if name is None else name
+        pickle_path = pickle_path.joinpath(file_name)
         pickle_path.touch()
         with pickle_path.open(mode='wb') as file:
             pickle.dump(d, file)

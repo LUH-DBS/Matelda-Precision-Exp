@@ -1,6 +1,8 @@
+import os
 import pickle
 from pathlib import Path
 
+from raha import raha
 from raha.raha import Detection
 
 
@@ -32,7 +34,22 @@ class Predictor(Detection):
         return d.detected_cells
 
 
-
 if __name__ == "__main__":
-    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-05-18 00:59:06.417399").resolve()
-    print(path)
+    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-05-23 23:38:21.802369").resolve()
+
+    predictor = Predictor()
+    predictor.VERBOSE = True
+    detection_dictionary = predictor.run(path)
+
+    dataset_name = "flights"
+    dataset_dictionary = {
+        "name": dataset_name,
+        "path": os.path.abspath(
+            os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "dirty.csv")),
+        "clean_path": os.path.abspath(
+            os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "clean.csv"))
+    }
+
+    data = raha.dataset.Dataset(dataset_dictionary)
+    p, r, f = data.get_data_cleaning_evaluation(detection_dictionary)[:3]
+    print("Raha's performance on {}:\nPrecision = {:.2f}\nRecall = {:.2f}\nF1 = {:.2f}".format(data.name, p, r, f))
