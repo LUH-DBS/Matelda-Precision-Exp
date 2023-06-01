@@ -4,21 +4,18 @@ from pathlib import Path
 
 from raha import raha
 from raha.raha import Detection
+from raha.raha.sampler import Sampler
 
 
-class Predictor(Detection):
+class Predictor(Sampler):
 
-    def run(self, dd: Path):
-        if dd.exists():
-            with dd.open("rb") as state:
-                d = pickle.load(state)
-        else:
-            raise ValueError
+    def run(self, d):
 
         if self.VERBOSE:
             print("------------------------------------------------------------------------\n"
                   "--------------Propagating User Labels Through the Clusters--------------\n"
                   "------------------------------------------------------------------------")
+        print(d)
         self.propagate_labels(d)
         if self.VERBOSE:
             print("------------------------------------------------------------------------\n"
@@ -35,11 +32,13 @@ class Predictor(Detection):
 
 
 if __name__ == "__main__":
-    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-05-23 23:38:21.802369").resolve()
+    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 14:01:26.267208").resolve()
 
     predictor = Predictor()
+    dd = predictor.load_state(path)
+
     predictor.VERBOSE = True
-    detection_dictionary = predictor.run(path)
+    detection_dictionary = predictor.run(dd)
 
     dataset_name = "flights"
     dataset_dictionary = {

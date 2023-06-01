@@ -2,9 +2,8 @@ import os
 import datetime
 import pickle
 from pathlib import Path
-
-from raha import raha
 from raha.raha import Detection
+
 
 
 class Sampler(Detection):
@@ -23,6 +22,24 @@ class Sampler(Detection):
             print("------------------------------------------------------------------------\n"
                   "------------------------------Stored state------------------------------\n"
                   "------------------------------------------------------------------------")
+        return pickle_path
+
+    def load_state(self, d_path):
+        if d_path.exists():
+            with d_path.open("rb") as state:
+                d = pickle.load(state)
+        else:
+            raise ValueError
+
+        return d
+
+    def label_with_dummy_value(self, d):
+        d.labeled_tuples[d.sampled_tuple] = 1
+
+        for j in range(d.dataframe.shape[1]):
+            cell = (d.sampled_tuple, j)
+            user_label = 1
+            d.labeled_cells[cell] = [user_label, "Dummy Value"]
 
     def run(self, dd):
         """
@@ -55,15 +72,11 @@ class Sampler(Detection):
 
         while len(d.labeled_tuples) < self.LABELING_BUDGET:
             self.sample_tuple(d)
-            d.labeled_tuples[d.sampled_tuple] = 0
-            for j in range(d.dataframe.shape[1]):
-                cell = (d.sampled_tuple, j)
-                d.labeled_cells[cell] = [0]
+            self.label_with_dummy_value(d)
             if self.VERBOSE:
                 print("------------------------------------------------------------------------")
-
         print(d.labeled_tuples)
-        self.save_state(d)
+        return d
 
 
 ########################################
@@ -81,4 +94,7 @@ if __name__ == "__main__":
     }
     app = Sampler()
     app.VERBOSE = True
-    app.run(dataset_dictionary)
+    detection_dictionary = app.run(dataset_dictionary)
+
+    path = app.save_state(detection_dictionary)
+
