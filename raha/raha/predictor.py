@@ -32,7 +32,7 @@ class Predictor(Sampler):
 
 
 if __name__ == "__main__":
-    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 14:01:26.267208").resolve()
+    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 15:02:28.343942").resolve()
 
     predictor = Predictor()
     dd = predictor.load_state(path)

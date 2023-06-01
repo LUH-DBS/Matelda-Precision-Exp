@@ -35,7 +35,7 @@ class Labeler(Sampler):
 
 
 if __name__ == "__main__":
-    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 14:01:26.267208").resolve()
+    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 15:02:28.343942").resolve()
 
     labeler = Labeler()
     dd = labeler.load_state(path)
