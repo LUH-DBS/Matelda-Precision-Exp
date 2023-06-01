@@ -40,14 +40,7 @@ if __name__ == "__main__":
     predictor.VERBOSE = True
     detection_dictionary = predictor.run(dd)
 
-    dataset_name = "flights"
-    dataset_dictionary = {
-        "name": dataset_name,
-        "path": os.path.abspath(
-            os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "dirty.csv")),
-        "clean_path": os.path.abspath(
-            os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "clean.csv"))
-    }
+    dataset_dictionary = dd.dictionary
 
     data = raha.dataset.Dataset(dataset_dictionary)
     p, r, f = data.get_data_cleaning_evaluation(detection_dictionary)[:3]
