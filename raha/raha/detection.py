@@ -39,6 +39,9 @@ import sklearn.neural_network
 import sklearn.feature_extraction
 
 import raha
+from raha.raha import dataset, utilities, tools
+
+
 ########################################
 
 
@@ -76,7 +79,7 @@ class Detection:
             dataset_path = os.path.join(tempfile.gettempdir(), d.name + "-" + strategy_name_hash + ".csv")
             d.write_csv_dataset(dataset_path, d.dataframe)
             params = ["-F", ",", "--statistical", "0.5"] + ["--" + configuration[0]] + configuration[1:] + [dataset_path]
-            raha.tools.dBoost.dboost.imported_dboost.run(params)
+            tools.dBoost.dboost.imported_dboost.run(params)
             algorithm_results_path = dataset_path + "-dboost_output.csv"
             if os.path.exists(algorithm_results_path):
                 ocdf = pandas.read_csv(algorithm_results_path, sep=",", header=None, encoding="utf-8", dtype=str,
@@ -89,7 +92,7 @@ class Detection:
         elif algorithm == "PVD":
             attribute, ch = configuration
             j = d.dataframe.columns.get_loc(attribute)
-            for i, value in d.dataframe[attribute].iteritems():
+            for i, value in d.dataframe[attribute].items():
                 try:
                     if len(re.findall("[" + ch + "]", value, re.UNICODE)) > 0:
                         outputted_cells[(i, j)] = ""
@@ -111,7 +114,7 @@ class Detection:
                     outputted_cells[(i, l_j)] = ""
                     outputted_cells[(i, r_j)] = ""
         elif algorithm == "KBVD":
-            outputted_cells = raha.tools.KATARA.katara.run(d, configuration)
+            outputted_cells = tools.KATARA.katara.run(d, configuration)
         detected_cells_list = list(outputted_cells.keys())
         strategy_profile = {
             "name": strategy_name,
@@ -129,7 +132,7 @@ class Detection:
         """
         This method instantiates the dataset.
         """
-        d = raha.dataset.Dataset(dd)
+        d = dataset.Dataset(dd)
         d.dictionary = dd
         d.results_folder = os.path.join(os.path.dirname(dd["path"]), "raha-baran-results-" + d.name)
         if self.SAVE_RESULTS and not os.path.exists(d.results_folder):
@@ -191,9 +194,9 @@ class Detection:
                 # pool.join()
         else:
             for dd in self.HISTORICAL_DATASETS + [d.dictionary]:
-                raha.utilities.dataset_profiler(dd)
-                raha.utilities.evaluation_profiler(dd)
-            strategy_profiles_list = raha.utilities.get_selected_strategies_via_historical_data(d.dictionary, self.HISTORICAL_DATASETS)
+                utilities.dataset_profiler(dd)
+                utilities.evaluation_profiler(dd)
+            strategy_profiles_list = utilities.get_selected_strategies_via_historical_data(d.dictionary, self.HISTORICAL_DATASETS)
         d.strategy_profiles = strategy_profiles_list
         if self.VERBOSE:
             print("{} strategy profiles are collected.".format(len(d.strategy_profiles)))
@@ -445,8 +448,9 @@ if __name__ == "__main__":
         "clean_path": os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, "datasets", dataset_name, "clean.csv"))
     }
     app = Detection()
+    app.VERBOSE = True
     detection_dictionary = app.run(dataset_dictionary)
-    data = raha.dataset.Dataset(dataset_dictionary)
+    data = dataset.Dataset(dataset_dictionary)
     p, r, f = data.get_data_cleaning_evaluation(detection_dictionary)[:3]
     print("Raha's performance on {}:\nPrecision = {:.2f}\nRecall = {:.2f}\nF1 = {:.2f}".format(data.name, p, r, f))
     # --------------------

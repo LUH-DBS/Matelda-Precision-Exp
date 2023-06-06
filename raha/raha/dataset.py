@@ -35,6 +35,8 @@ class Dataset:
             self.has_ground_truth = True
             self.clean_path = dataset_dictionary["clean_path"]
             self.clean_dataframe = self.read_csv_dataset(dataset_dictionary["clean_path"])
+        else:
+            self.has_ground_truth = False
         if "repaired_path" in dataset_dictionary:
             self.has_been_repaired = True
             self.repaired_path = dataset_dictionary["repaired_path"]
