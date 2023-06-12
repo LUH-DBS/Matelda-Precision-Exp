@@ -435,7 +435,7 @@ class Detection:
                       "---------------------------Storing the Results--------------------------\n"
                       "------------------------------------------------------------------------")
             self.store_results(d)
-        return d.detected_cells
+        return d.detected_cells, d.labeled_cells, d.get_actual_errors_dictionary()
 ########################################
 
 
