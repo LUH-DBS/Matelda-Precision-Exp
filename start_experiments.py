@@ -6,7 +6,7 @@ import tqdm
 path_to_experiments = Path("/home/malte/EDS-Baselines/experiments").resolve() # change here to change root repository for experiments
 n_experiments = 1 # change here to run experiments n times -> generate n states with different tuples sampled
 
-for experiment in tqdm.tqdm(path_to_experiments.iterdir()):
+for experiment in tqdm.tqdm(list(path_to_experiments.iterdir())):
     
     if experiment.is_file():
         continue
