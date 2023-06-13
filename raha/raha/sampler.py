@@ -75,7 +75,8 @@ class Sampler(Detection):
             self.label_with_dummy_value(d)
             if self.VERBOSE:
                 print("------------------------------------------------------------------------")
-        print(d.labeled_tuples)
+        if self.VERBOSE:
+            print(d.labeled_tuples)
         return d
 
 
