@@ -48,4 +48,4 @@ while datalake_index.shape[0] < n_datasets:
         new_row = {'Path': csv_path, 'Rows': df.shape[0], 'Columns': df.shape[1]}
         datalake_index.loc[len(df)] = new_row
 
-datalake_index.to_csv(Path("/home/malte/EDS-Baselines/datalake_index.csv").resolve())
+datalake_index.to_csv(Path("/home/malte/EDS-Baselines/datalake_index.csv", index=False).resolve())
