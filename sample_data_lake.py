@@ -31,7 +31,7 @@ print(len(paths))
 print("Finished retrieving all file paths")
 
 
-datalake_index = pd.DataFrame(columns=["Path"])
+datalake_index = pd.DataFrame(columns=["Path", "Rows", "Columns"])
 
 while datalake_index.shape[0] < n_datasets:
     index = np.random.randint(0, len(paths))
