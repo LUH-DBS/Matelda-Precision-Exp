@@ -30,6 +30,7 @@ print(len(states))
 for state in tqdm.tqdm(states):
         
         labeler = Labeler()
+        labeler.LABELING_BUDGET = 1
         dd = labeler.load_state(state)
         labeler.VERBOSE = True
         detection_dictionary = labeler.run(dd)

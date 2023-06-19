@@ -17,5 +17,6 @@ for experiment in tqdm.tqdm(path_to_experiments.iterdir()):
                 state_path = file.joinpath("state")
                 for state in state_path.iterdir():
                         predictor = Predictor()
+                        predictor.LABELING_BUDGET = 1
                         dd = predictor.load_state(state)
                         detection_dictionary, labeled_cells, actuall_errors_dict = predictor.run(dd)
