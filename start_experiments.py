@@ -21,5 +21,6 @@ for experiment in tqdm.tqdm(list(path_to_experiments.iterdir())):
                             "path": dataset
                         }
                     sampler = Sampler()
+                    sampler.LABELING_BUDGET = 1
                     detection_dictionary = sampler.run(dataset_dictionary)
                     sampler.save_state(detection_dictionary)
