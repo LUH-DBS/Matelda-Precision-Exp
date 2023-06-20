@@ -28,7 +28,7 @@ states = states[args.start:end]
 print(len(states))
 
 for state in tqdm.tqdm(states):
-        
+        print(state)
         labeler = Labeler()
         labeler.LABELING_BUDGET = 1
         dd = labeler.load_state(state)
