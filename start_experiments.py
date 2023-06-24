@@ -1,5 +1,4 @@
 from pathlib import Path
-import raha
 from raha.raha.sampler import Sampler
 import tqdm
 

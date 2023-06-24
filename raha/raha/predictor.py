@@ -4,6 +4,7 @@ import pickle
 from pathlib import Path
 
 from raha import raha
+
 from raha.raha import Detection
 from raha.raha.sampler import Sampler
 
@@ -29,7 +30,7 @@ class Predictor(Sampler):
                       "---------------------------Storing the Results--------------------------\n"
                       "------------------------------------------------------------------------")
         self.store_results(d)
-        return d.detected_cells, d.labeled_cells, d.get_actual_errors_dictionary()
+        return d
 
 
 if __name__ == "__main__":
@@ -44,7 +45,8 @@ if __name__ == "__main__":
     dd = predictor.load_state(path)
 
     predictor.VERBOSE = True
-    detection_dictionary, labeled_cells, actuall_errors_dict = predictor.run(dd)
+    d = predictor.run(dd)
+    detection_dictionary, labeled_cells, actuall_errors_dict = d.detected_cells, d.labeled_cells, d.get_actual_errors_dictionary()
 
     dataset_dictionary = dd.dictionary
 
