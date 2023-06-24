@@ -3,9 +3,8 @@ import os
 import pickle
 from pathlib import Path
 
-from raha import raha
-
 from raha.raha import Detection
+from raha.raha.dataset import Dataset
 from raha.raha.sampler import Sampler
 
 
@@ -50,7 +49,7 @@ if __name__ == "__main__":
 
     dataset_dictionary = dd.dictionary
 
-    data = raha.dataset.Dataset(dataset_dictionary)
+    data = Dataset(dataset_dictionary)
     detected_errors = list(detection_dictionary.keys())
     metrics = data.get_data_cleaning_evaluation(detection_dictionary)
     results = {'dataset_path': dataset_path, 'dataset_name': dataset_name, 'execution_number': execution_number, 'dataset_shape': data.dataframe.shape, 
