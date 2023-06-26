@@ -13,8 +13,8 @@ class Sampler(Detection):
         if not pickle_path.exists():
             pickle_path.mkdir()
 
-        file_name = str(datetime.datetime.now()) if name is None else name
-        pickle_path = pickle_path.joinpath(file_name)
+        file_name = str(datetime.datetime.now()).replace(" ", "_").replace(":", ".") if name is None else name
+        pickle_path = pickle_path.joinpath(file_name).resolve()
         pickle_path.touch()
         with pickle_path.open(mode='wb') as file:
             pickle.dump(d, file)
