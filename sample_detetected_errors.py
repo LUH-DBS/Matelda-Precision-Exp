@@ -43,4 +43,5 @@ for index in choices:
     df.loc[len(df)] = row
 
 print(df)
+df = df.sort_values("Dataset")
 df.to_csv(experiments_folder.joinpath("sampled_errors.csv").resolve(), index=False)
