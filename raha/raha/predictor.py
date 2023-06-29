@@ -33,7 +33,7 @@ class Predictor(Sampler):
 
 
 if __name__ == "__main__":
-    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 15:02:28.343942").resolve()
+    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-27_00.34.07.688242").resolve()
     dataset_path = "../datasets/flights"
     dataset_name = "flights"
     execution_number = 1 # we should change this if we need to run each dataset 10 times
@@ -45,6 +45,8 @@ if __name__ == "__main__":
 
     predictor.VERBOSE = True
     d = predictor.run(dd)
+    print(d.detected_cells)
+    predictor.save_state(d, path.name)
     detection_dictionary, labeled_cells, actuall_errors_dict = d.detected_cells, d.labeled_cells, d.get_actual_errors_dictionary()
 
     dataset_dictionary = dd.dictionary

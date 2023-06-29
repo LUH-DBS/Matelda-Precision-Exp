@@ -24,18 +24,23 @@ for experiment in experiments_folder.iterdir():
         loader = Predictor()
         d = loader.load_state(state)
         #print(d.detected_cells)
-        detected_errors += [(dataset_path, state, item) for item in d.detected_cells.keys()]
+        error = [(dataset_path, state, item, d.detected_cells[item]) for item in d.detected_cells.keys()]
+        error = list(filter(lambda x: x[3] != 'JUST A DUMMY VALUE', error))
+        detected_errors += error
 
-df = pd.DataFrame(columns=["Value", "IsError", "Row", "Column",  "Dataset", "State", ])
+df = pd.DataFrame(columns=["Value", "Ground Truth", "IsError", "Probability", "Row", "Column",  "Dataset", "State", ])
+detected_errors = sorted(detected_errors, key=lambda x: x[3])
 
-choices = np.random.choice(np.arange(len(detected_errors)), n_samples, replace=False)
-print(choices)
-for index in choices:
-    error = detected_errors[index]
+choices = detected_errors[len(detected_errors) - n_samples:]
+
+for tup in choices:
+    error = tup
     loader = Predictor()
     d = loader.load_state(error[1])
     row = {'Value': d.dataframe.iloc[error[2]],
+           'Ground Truth': "",
            'IsError': "",
+           'Probability': error[3],
            'Row': error[2][0],
            'Column': error[2][1],
            'Dataset': error[0],
