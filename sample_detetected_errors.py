@@ -6,7 +6,7 @@ import pandas as pd
 from raha.raha.predictor import Predictor
 
 
-experiments_folder = Path("X:\\Projekte\\EDS-Baselines\\raha\\datasets").resolve()
+experiments_folder = Path("./experiments").resolve()
 n_samples = 100
 
 #get all possible states
@@ -30,7 +30,8 @@ for experiment in experiments_folder.iterdir():
 
 df = pd.DataFrame(columns=["Value", "Ground Truth", "IsError", "Probability", "Row", "Column",  "Dataset", "State", ])
 detected_errors = sorted(detected_errors, key=lambda x: x[3])
-
+print(f"Detected Errors: {len(detected_errors)}")
+# print(detected_errors)
 choices = detected_errors[len(detected_errors) - n_samples:]
 
 for tup in choices:

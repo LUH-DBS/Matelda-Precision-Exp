@@ -369,9 +369,11 @@ class Detection:
                 classification_model.fit(x_train, y_train)
                 predicted_labels = classification_model.predict(x_test)
                 probs = classification_model.predict_proba(x_test)
+                print("HI")
             for i, pl in enumerate(predicted_labels):
+                # print(probs)
                 if (i in d.labeled_tuples and d.extended_labeled_cells[(i, j)]) or (i not in d.labeled_tuples and pl):
-                    detected_cells_dictionary[(i, j)] = probs[(i, pl)]
+                    detected_cells_dictionary[(i, j)] = probs[(i, int(pl))]
             if self.VERBOSE:
                 print("A classifier is trained and applied on column {}.".format(j))
         d.detected_cells.update(detected_cells_dictionary)
