@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
+import pickle
 
 n_datasets = 100
 
@@ -12,6 +13,11 @@ max_columns = 10
 
 datalake_path = Path("/home/fatemeh/EDS-Datasets/WDC_Corpus/scsv").resolve()
 print(datalake_path)
+
+unidetect_trainings_set_path = Path("paths.pkl").resolve()
+with unidetect_trainings_set_path.open("rb") as file:
+    trainings_set = pickle.load(file)
+
 
 if not datalake_path.exists():
     exit()
@@ -40,6 +46,10 @@ while datalake_index.shape[0] < n_datasets:
     if csv_path.is_dir():
         print("was dir")
         continue
+    if str(csv_path) in trainings_set:
+        print("was in trainings_set")
+        continue
+
     print("is file")
     df = pd.read_csv(csv_path)
 
@@ -48,4 +58,4 @@ while datalake_index.shape[0] < n_datasets:
         new_row = {'Path': csv_path, 'Rows': df.shape[0], 'Columns': df.shape[1]}
         datalake_index.loc[len(df)] = new_row
 
-datalake_index.to_csv(Path("/home/malte/EDS-Baselines/datalake_index.csv", index=False).resolve())
+datalake_index.to_csv(Path("/home/malte/EDS-Baselines/datalake_index_without_training_set.csv", index=False).resolve())

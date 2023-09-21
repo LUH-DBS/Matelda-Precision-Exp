@@ -6,7 +6,8 @@ import pandas as pd
 from raha.raha.predictor import Predictor
 
 
-experiments_folder = Path("./experiments").resolve()
+experiments_folder = Path("./experiments_2_lables_checked").resolve()
+print(experiments_folder)
 n_samples = 100
 
 #get all possible states
@@ -50,4 +51,4 @@ for tup in choices:
 
 print(df)
 df = df.sort_values("Dataset")
-df.to_csv(experiments_folder.joinpath("sampled_errors.csv").resolve(), index=False)
+df.to_csv(experiments_folder.joinpath("sampled_errors_without_trainings_set.csv").resolve(), index=False)

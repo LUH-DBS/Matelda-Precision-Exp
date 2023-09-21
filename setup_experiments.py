@@ -3,8 +3,8 @@ from pathlib import Path
 
 
 
-df = pd.read_csv(Path("/home/malte/EDS-Baselines/datalake_index.csv").resolve())
-wd = Path.cwd().joinpath("experiments")
+df = pd.read_csv(Path("/home/malte/EDS-Baselines/datalake_index_without_training_set.csv").resolve())
+wd = Path.cwd().joinpath("experiments_2_lables_checked")
 wd.mkdir(exist_ok=True)
 
 print(f"Move experiment datasets to {wd}")

@@ -7,7 +7,7 @@ import argparse
 import tqdm
 from pathlib import Path
 
-path_to_experiments = Path("/home/malte/EDS-Baselines/experiments").resolve() # change here to change root repository for experiments
+path_to_experiments = Path("/home/malte/EDS-Baselines/experiments_2_lables_checked").resolve() # change here to change root repository for experiments
 n_experiments = 1 # change here to run experiments n times -> generate n states with different tuples sampled
 
 parser = argparse.ArgumentParser()
@@ -15,7 +15,7 @@ parser.add_argument('--start', help='Integer at which experiment to start labeli
 parser.add_argument('--end', help='Integer at which experiment to end labeling', type=int)
 args = parser.parse_args()
 
-experiments_folder = Path("./experiments").resolve()
+experiments_folder = path_to_experiments
 
 #get all possible states
 states = []
@@ -34,9 +34,9 @@ if end is None or end > len(states):
 states = states[args.start:end]
 print(len(states))
 
-for state in states:
+for state in tqdm.tqdm(states):
     predictor = Predictor()
-    predictor.LABELING_BUDGET = 1
+    predictor.LABELING_BUDGET = 2
     dd = predictor.load_state(state)
     d = predictor.run(dd)
     predictor.save_state(d, state.name)

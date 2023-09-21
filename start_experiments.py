@@ -2,7 +2,7 @@ from pathlib import Path
 from raha.raha.sampler import Sampler
 import tqdm
 
-path_to_experiments = Path("/home/malte/EDS-Baselines/experiments").resolve() # change here to change root repository for experiments
+path_to_experiments = Path("/home/malte/EDS-Baselines/experiments_2_lables_checked").resolve() # change here to change root repository for experiments
 n_experiments = 1 # change here to run experiments n times -> generate n states with different tuples sampled
 
 for experiment in tqdm.tqdm(list(path_to_experiments.iterdir())):
@@ -20,6 +20,6 @@ for experiment in tqdm.tqdm(list(path_to_experiments.iterdir())):
                             "path": dataset
                         }
                     sampler = Sampler()
-                    sampler.LABELING_BUDGET = 1
+                    sampler.LABELING_BUDGET = 2
                     detection_dictionary = sampler.run(dataset_dictionary)
                     sampler.save_state(detection_dictionary)

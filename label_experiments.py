@@ -9,7 +9,7 @@ parser.add_argument('--start', help='Integer at which experiment to start labeli
 parser.add_argument('--end', help='Integer at which experiment to end labeling', type=int)
 args = parser.parse_args()
 
-experiments_folder = Path("./experiments").resolve()
+experiments_folder = Path("./experiments_2_lables_checked").resolve()
 
 #get all possible states
 states = []
@@ -30,7 +30,7 @@ print(len(states))
 for state in tqdm.tqdm(states):
         print(state)
         labeler = Labeler()
-        labeler.LABELING_BUDGET = 1
+        labeler.LABELING_BUDGET = 2
         dd = labeler.load_state(state)
         labeler.VERBOSE = True
         detection_dictionary = labeler.run(dd)

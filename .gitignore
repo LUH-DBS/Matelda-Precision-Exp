@@ -161,3 +161,6 @@ cython_debug/
 
 experiments/*
 notebook.ipynb
+experiments_2_lables
+experiments_2_lables_checked
+check_datasets.py
