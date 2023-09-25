@@ -1,42 +1,40 @@
-from pathlib import Path
-import raha
+import hydra
 from raha.raha.predictor import Predictor
-from raha.raha.sampler import Sampler
-import tqdm
 import argparse
 import tqdm
 from pathlib import Path
+@hydra.main(version_base=None, config_path="hydra_configs", config_name="base")
+def main(cfg):
+    experiments_folder = Path(cfg["experiment"]["path_to_experiment"]).resolve()
+    # get all possible states
+    states = []
+    for experiment in experiments_folder.iterdir():
+        name = experiment.name
+        experiment = experiment.joinpath(f"raha-baran-results-{name}")
+        experiment = experiment.joinpath("state")
+        if experiment.exists():
+            for state in experiment.iterdir():
+                print(state)
+                states.append(state)
 
-path_to_experiments = Path("/home/malte/EDS-Baselines/experiments_2_lables_checked").resolve() # change here to change root repository for experiments
-n_experiments = 1 # change here to run experiments n times -> generate n states with different tuples sampled
+    start = cfg["execution"]["start"]
+    if start < 0:
+        start = 0
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--start', help='Integer at which experiment to start labeling', type=int,default=0)
-parser.add_argument('--end', help='Integer at which experiment to end labeling', type=int)
-args = parser.parse_args()
+    end = cfg["execution"]["end"]
+    if end is None or end > len(states):
+        end = len(states)
 
-experiments_folder = path_to_experiments
+    states = states[start:end]
+    print(len(states))
 
-#get all possible states
-states = []
-for experiment in experiments_folder.iterdir():
-    name = experiment.name
-    experiment = experiment.joinpath(f"raha-baran-results-{name}")
-    experiment = experiment.joinpath("state")
-    if experiment.exists():
-        for state in experiment.iterdir():
+    for state in tqdm.tqdm(states):
+        predictor = Predictor()
+        predictor.LABELING_BUDGET = cfg["raha"]["labeling_budget"]
+        dd = predictor.load_state(state)
+        d = predictor.run(dd)
+        predictor.save_state(d, state.name)
 
-            print(state)
-            states.append(state)
-end = args.end
-if end is None or end > len(states):
-    end = len(states)
-states = states[args.start:end]
-print(len(states))
 
-for state in tqdm.tqdm(states):
-    predictor = Predictor()
-    predictor.LABELING_BUDGET = 2
-    dd = predictor.load_state(state)
-    d = predictor.run(dd)
-    predictor.save_state(d, state.name)
+if __name__ == '__main__':
+    main()
