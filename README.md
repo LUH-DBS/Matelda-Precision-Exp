@@ -1,6 +1,6 @@
 # EDS-Baselines
 This repository contains code that performs the precision experiment of Raha and Uni-Detect on the real world 
-data lake GWC for the paper Error Detection at Scale. Specifically, Raha needed to be adapted to allow streamlined user labeling, because no ground truth 
+data lake WDC for the paper Error Detection at Scale. Specifically, Raha needed to be adapted to allow streamlined user labeling, because no ground truth 
 is available.
 ## Installation
 1. Create a anaconda environment

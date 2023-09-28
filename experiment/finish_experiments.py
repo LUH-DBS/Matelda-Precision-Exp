@@ -1,8 +1,13 @@
+import logging
+
 import hydra
+from raha.predictor import Predictor
+
 import tqdm
 from pathlib import Path
 
-from raha.raha.labeler import Labeler
+log = logging.getLogger(__name__)
+
 
 @hydra.main(version_base=None, config_path="hydra_configs", config_name="base")
 def main(cfg):
@@ -13,9 +18,10 @@ def main(cfg):
         name = experiment.name
         experiment = experiment.joinpath(f"raha-baran-results-{name}")
         experiment = experiment.joinpath("state")
-        for state in experiment.iterdir():
-            print(state)
-            states.append(state)
+        if experiment.exists():
+            for state in experiment.iterdir():
+                log.debug(state)
+                states.append(state)
 
     start = cfg["execution"]["start"]
     if start < 0:
@@ -26,17 +32,14 @@ def main(cfg):
         end = len(states)
 
     states = states[start:end]
-    print(len(states))
+    log.info(f"Datasets to finish: {len(states)}")
 
     for state in tqdm.tqdm(states):
-        print(state)
-        labeler = Labeler()
-        labeler.LABELING_BUDGET = cfg["raha"]["labeling_budget"]
-        dd = labeler.load_state(state)
-        labeler.VERBOSE = True
-        detection_dictionary = labeler.run(dd)
-
-        labeler.save_state(detection_dictionary, state.name)
+        predictor = Predictor()
+        predictor.LABELING_BUDGET = cfg["raha"]["labeling_budget"]
+        dd = predictor.load_state(state)
+        d = predictor.run(dd)
+        predictor.save_state(d, state.name)
 
 
 if __name__ == '__main__':

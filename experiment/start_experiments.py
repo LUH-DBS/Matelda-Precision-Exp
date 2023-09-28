@@ -1,9 +1,12 @@
+import logging
 from pathlib import Path
 
 import hydra
 
-from raha.raha.sampler import Sampler
+from raha.sampler import Sampler
 import tqdm
+
+log = logging.getLogger(__name__)
 
 
 @hydra.main(version_base=None, config_path="hydra_configs", config_name="base")

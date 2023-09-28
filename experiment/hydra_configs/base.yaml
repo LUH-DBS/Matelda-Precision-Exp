@@ -1,9 +1,13 @@
+defaults:
+  - _self_
+  - experiment_path
+
 raha:
   labeling_budget: 2
 
 experiment:
   n_experiments: 1
-  path_to_experiment: "./data_lake"
+
 
 execution:
   start: 0

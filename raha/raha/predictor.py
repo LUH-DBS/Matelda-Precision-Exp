@@ -3,9 +3,9 @@ import os
 import pickle
 from pathlib import Path
 
-from raha.raha import Detection
-from raha.raha.dataset import Dataset
-from raha.raha.sampler import Sampler
+from raha import Detection
+from raha.dataset import Dataset
+from raha.sampler import Sampler
 
 
 class Predictor(Sampler):

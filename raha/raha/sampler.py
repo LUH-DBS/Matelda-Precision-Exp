@@ -2,7 +2,7 @@ import os
 import datetime
 import pickle
 from pathlib import Path
-from raha.raha import Detection
+from raha import Detection
 
 
 

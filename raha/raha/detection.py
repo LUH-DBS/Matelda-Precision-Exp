@@ -39,8 +39,7 @@ import sklearn.kernel_ridge
 import sklearn.neural_network
 import sklearn.feature_extraction
 
-import raha
-from raha.raha import dataset, utilities, tools
+from raha import dataset, utilities, tools
 
 
 ########################################

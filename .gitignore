@@ -164,3 +164,8 @@ notebook.ipynb
 experiments_2_lables
 experiments_2_lables_checked
 check_datasets.py
+
+outputs/
+datasets/
+.idea/
+test.py

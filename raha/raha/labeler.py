@@ -1,7 +1,7 @@
 import pickle
 from pathlib import Path
 
-from raha.raha.sampler import Sampler
+from raha.sampler import Sampler
 
 
 class Labeler(Sampler):
