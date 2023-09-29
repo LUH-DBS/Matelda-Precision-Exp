@@ -169,3 +169,6 @@ outputs/
 datasets/
 .idea/
 test.py
+datalake_index_without_training_set.csv
+doubled_datasets.csv
+paths.pkl
