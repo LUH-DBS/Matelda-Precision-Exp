@@ -1,11 +1,11 @@
 from pathlib import Path
 
 import pandas as pd
-from raha.raha.predictor import Predictor
+from raha.predictor import Predictor
 
 path_to_lake = Path("/home/malte/EDS-Baselines/experiments_2_lables_checked").resolve()
 
-#states = []
+# states = []
 for experiment in path_to_lake.iterdir():
     name = experiment.name
     experiment = experiment.joinpath(f"raha-baran-results-{name}")
@@ -26,8 +26,7 @@ for experiment in path_to_lake.iterdir():
                                    "Ground Truth": state.labeled_cells[key][1],
                                    "Label": state.labeled_cells[key][0]}
 
-
             dataframe_path = experiment.parent.joinpath("labled_values.csv")
             df.to_csv(dataframe_path, index=False)
 
-            #states.append(state)
+            # states.append(state)

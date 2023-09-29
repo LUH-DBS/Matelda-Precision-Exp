@@ -1,0 +1,6 @@
+defaults:
+  - _self_
+  - experiment_path
+
+retrival:
+  error_index_path: "./all_detected_errors.csv"
