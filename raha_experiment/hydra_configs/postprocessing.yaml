@@ -4,3 +4,7 @@ defaults:
 
 retrival:
   error_index_path: "./all_detected_errors.csv"
+
+sampling:
+  n_samples: 100
+  path_to_error_samples: "./sampled_errors_random.csv"

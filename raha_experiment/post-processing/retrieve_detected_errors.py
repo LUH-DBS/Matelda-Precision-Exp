@@ -54,7 +54,7 @@ def main(cfg):
 
     log.debug(df)
     df = df.sort_values("Dataset")
-    df.to_csv(experiments_folder.joinpath(cfg["retrival"]["error_index_path"]).resolve(), index=False)
+    df.to_csv(Path(cfg["retrival"]["error_index_path"]).resolve(), index=False)
 
 
 if __name__ == '__main__':
