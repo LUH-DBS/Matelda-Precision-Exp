@@ -33,7 +33,7 @@ def main(cfg):
                                        "Ground Truth": state.labeled_cells[key][1],
                                        "Label": state.labeled_cells[key][0]}
 
-                dataframe_path = experiment.parent.joinpath("labled_values.csv")
+                dataframe_path = experiment.parent.joinpath("labeled_values.csv")
                 df.to_csv(dataframe_path, index=False)
 
                 # states.append(state)
