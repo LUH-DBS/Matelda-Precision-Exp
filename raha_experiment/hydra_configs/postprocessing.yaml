@@ -1,0 +1,10 @@
+defaults:
+  - _self_
+  - experiment_path
+
+retrival:
+  error_index_path: "./all_detected_errors.csv" # the path where an index of all errors that are detected by raha is indexed
+
+sampling:
+  n_samples: 100 # determines how many errors should be sampled from the index that contain all errors
+  path_to_error_samples: "./sampled_errors_random.csv" # the path where the index which contains the sampled errors should be

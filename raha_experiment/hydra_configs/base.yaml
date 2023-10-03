@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+  - experiment_path
+
+raha:
+  labeling_budget: 2 # How many tuples should be labeled by the user per dataset
+
+experiment:
+  n_experiments: 1 # How many iterations of Raha should be run on the same dataset
+
+
+execution:
+  start: 0 # determines on which dataset the labeling and classifier stages of Raha start (inclusive)
+  end: 100 # determines on which dataset the labeling and classifier stages of Raha end (inclusive)

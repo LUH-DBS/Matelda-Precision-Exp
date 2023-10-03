@@ -24,6 +24,7 @@ import itertools
 import multiprocessing
 
 import numpy
+import numpy as np
 import pandas
 import scipy.stats
 import scipy.spatial
@@ -38,8 +39,7 @@ import sklearn.kernel_ridge
 import sklearn.neural_network
 import sklearn.feature_extraction
 
-import raha
-from raha.raha import dataset, utilities, tools
+from raha import dataset, utilities, tools
 
 
 ########################################
@@ -344,10 +344,12 @@ class Detection:
             y_train = [d.extended_labeled_cells[(i, j)] for i in range(d.dataframe.shape[0]) if
                        (i, j) in d.extended_labeled_cells]
             x_test = feature_vectors
+            probs = np.zeros((len(x_test), 2))
             if sum(y_train) == len(y_train):
                 predicted_labels = numpy.ones(d.dataframe.shape[0])
             elif sum(y_train) == 0 or len(x_train[0]) == 0:
                 predicted_labels = numpy.zeros(d.dataframe.shape[0])
+
             else:
                 if self.CLASSIFICATION_MODEL == "ABC":
                     classification_model = sklearn.ensemble.AdaBoostClassifier(n_estimators=100)
@@ -365,9 +367,12 @@ class Detection:
                     classification_model = sklearn.svm.SVC(kernel="sigmoid")
                 classification_model.fit(x_train, y_train)
                 predicted_labels = classification_model.predict(x_test)
+                probs = classification_model.predict_proba(x_test)
+                print("HI")
             for i, pl in enumerate(predicted_labels):
+                # print(probs)
                 if (i in d.labeled_tuples and d.extended_labeled_cells[(i, j)]) or (i not in d.labeled_tuples and pl):
-                    detected_cells_dictionary[(i, j)] = "JUST A DUMMY VALUE"
+                    detected_cells_dictionary[(i, j)] = probs[(i, int(pl))]
             if self.VERBOSE:
                 print("A classifier is trained and applied on column {}.".format(j))
         d.detected_cells.update(detected_cells_dictionary)

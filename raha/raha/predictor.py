@@ -3,9 +3,9 @@ import os
 import pickle
 from pathlib import Path
 
-from raha import raha
-from raha.raha import Detection
-from raha.raha.sampler import Sampler
+from raha import Detection
+from raha.dataset import Dataset
+from raha.sampler import Sampler
 
 
 class Predictor(Sampler):
@@ -16,7 +16,6 @@ class Predictor(Sampler):
             print("------------------------------------------------------------------------\n"
                   "--------------Propagating User Labels Through the Clusters--------------\n"
                   "------------------------------------------------------------------------")
-        print(d)
         self.propagate_labels(d)
         if self.VERBOSE:
             print("------------------------------------------------------------------------\n"
@@ -29,11 +28,11 @@ class Predictor(Sampler):
                       "---------------------------Storing the Results--------------------------\n"
                       "------------------------------------------------------------------------")
         self.store_results(d)
-        return d.detected_cells, d.labeled_cells, d.get_actual_errors_dictionary()
+        return d
 
 
 if __name__ == "__main__":
-    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-01 15:02:28.343942").resolve()
+    path = Path("../datasets/flights/raha-baran-results-flights/state/2023-06-27_00.34.07.688242").resolve()
     dataset_path = "../datasets/flights"
     dataset_name = "flights"
     execution_number = 1 # we should change this if we need to run each dataset 10 times
@@ -44,11 +43,14 @@ if __name__ == "__main__":
     dd = predictor.load_state(path)
 
     predictor.VERBOSE = True
-    detection_dictionary, labeled_cells, actuall_errors_dict = predictor.run(dd)
+    d = predictor.run(dd)
+    print(d.detected_cells)
+    predictor.save_state(d, path.name)
+    detection_dictionary, labeled_cells, actuall_errors_dict = d.detected_cells, d.labeled_cells, d.get_actual_errors_dictionary()
 
     dataset_dictionary = dd.dictionary
 
-    data = raha.dataset.Dataset(dataset_dictionary)
+    data = Dataset(dataset_dictionary)
     detected_errors = list(detection_dictionary.keys())
     metrics = data.get_data_cleaning_evaluation(detection_dictionary)
     results = {'dataset_path': dataset_path, 'dataset_name': dataset_name, 'execution_number': execution_number, 'dataset_shape': data.dataframe.shape, 
