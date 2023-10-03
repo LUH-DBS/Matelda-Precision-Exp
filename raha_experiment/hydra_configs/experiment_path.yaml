@@ -1,2 +1,2 @@
 experiment:
-  path_to_experiment: "./data_lake"
+  path_to_experiment: "./data_lake" # determines the path that shall contain the datasets extracted from the WDC datalake and used for the Raha execution
