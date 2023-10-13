@@ -3,15 +3,15 @@ defaults:
   - experiment_path
 
 sampling:
-  amount_of_datasets: 100 # determines how many dataset should be sampled from the data lake
+  amount_of_datasets: 1 # determines how many dataset should be sampled from the data lake
 
   minimum_rows: 21 # determines how many rows the datasets should have at minimum (inclusive)
   maximum_rows: 100000 # determines the maximum amount of rows (inclusive)
 
   minimum_columns: 3 # determines how many columns the datasets should have at minimum (inclusive)
-  maximum_columns: 10 # determines the maximum amount of columns (inclusive)
+  maximum_columns: 20 # determines the maximum amount of columns (inclusive)
 
-  datalake_path: "/home/fatemeh/EDS-Datasets/WDC_Corpus/scsv" # the path that contains all datasets in the data lake in csv format
+  datalake_path: "./test_lake" # the path that contains all datasets in the data lake in csv format
 
   unidetect_training_corpus: null # a path for a file, which contains a pickled list of paths that point towards datasets in the data lake -> those paths are excluded from the sampling
 
