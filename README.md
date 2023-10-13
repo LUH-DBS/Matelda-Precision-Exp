@@ -4,7 +4,7 @@ Specifically, Raha needed to be adapted to allow efficient experiment execution 
 
 ## Installation
 1. Create an anaconda environment
-   - use ``environment.yml`` or install packages manually. 
+   - use ``environment.yml``
 2. Install adapted raha
    - ``cd raha``
    - ``pip install -e .``
