@@ -6,8 +6,10 @@ Specifically, Raha needed to be adapted to allow efficient experiment execution 
 1. Create an anaconda environment
    - use ``environment.yml``
 2. Install adapted raha
-   - ``cd raha``
-   - ``pip install -e .``
+   - ``` shell
+     cd raha
+     pip install -e .
+     cd ..
 ## Usage
 There are multiple steps required to run the different experiments. The Raha precision experiment is 
 executed in the following steps:

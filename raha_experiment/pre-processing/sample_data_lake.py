@@ -21,8 +21,8 @@ def main(cfg):
 
     datalake_path = Path(cfg["sampling"]["datalake_path"]).resolve()
 
-    unidetect_trainings_set_path = Path(cfg["sampling"]["unidetect_training_corpus"]).resolve()
-    if unidetect_trainings_set_path is not None:
+    if cfg["sampling"]["unidetect_training_corpus"] is not None:
+        unidetect_trainings_set_path = Path(cfg["sampling"]["unidetect_training_corpus"]).resolve()
         with unidetect_trainings_set_path.open("rb") as file:
             trainings_set = pickle.load(file)
     else:

@@ -13,6 +13,6 @@ sampling:
 
   datalake_path: "/home/fatemeh/EDS-Datasets/WDC_Corpus/scsv" # the path that contains all datasets in the data lake in csv format
 
-  unidetect_training_corpus: None # a path for a file, which contains a pickled list of paths that point towards datasets in the data lake -> those paths are excluded from the sampling
+  unidetect_training_corpus: null # a path for a file, which contains a pickled list of paths that point towards datasets in the data lake -> those paths are excluded from the sampling
 
   sample_index: "./sample_index.csv" # determines the path that shall point toward the index-file, which will contain the paths towards the sampled datasets
