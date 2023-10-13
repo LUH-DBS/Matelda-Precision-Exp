@@ -13,7 +13,7 @@ There are multiple steps required to run the different experiments. The Raha pre
 executed in the following steps:
 1. Configure the configs in ``raha_experiment/hydra_configs``
 2. Setup the experimental data
-   - download WDC data lake and convert to csv files
+   - prepare a data lake (for example the WDC data lake) in a folder (every dataset needs to be in csv format)
    - sample datasets from the data lake with ``python raha_experiment/pre-processing/sample_data_lake.py``
    - Using ``python raha_experiment/pre-processing/setup_experiments.py`` the folder structure necessary for Raha 
    can be created
