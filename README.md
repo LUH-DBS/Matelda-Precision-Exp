@@ -31,3 +31,15 @@ This requires user input and can take a lot of time!
 5. The last step uses the labels to execute the prediction part of Raha. This can be done 
 by running ``python raha_experiment/finish_experiments.py``
    - ``raha.start`` and ``raha.end`` in the file ``raha_experiment/hydra_configs/base.yaml`` also control the execution here.
+
+## Experiment
+
+The configs are configured for the experiment run in the paper. Only the config at 
+``raha_experiment/hydra_configs/preprocessing.yaml`` needs to be changed as it is configured for the test_lake.
+
+Changes:
+   - ``sampling.maximum_columns``: ``20`` -> ``10``
+   - ``sampling.amount_of_datasets``: ``1`` -> ``100``
+   - ``sampling.unidetect_training_corpus``: ``null`` -> a pickled list of paths pointing to datasets in the lake, 
+   that have been used for training unidetect or should in general be excluded
+   - ``sampling.datalake_path``: ``./test_lake`` -> path pointing towards the WDC lake
