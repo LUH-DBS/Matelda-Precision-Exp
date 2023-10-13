@@ -8,7 +8,7 @@ from raha.predictor import Predictor
 log = logging.getLogger(__name__)
 
 
-@hydra.main(version_base=None, config_path="hydra_configs", config_name="postprocessing")
+@hydra.main(version_base=None, config_path="../hydra_configs", config_name="postprocessing")
 def main(cfg):
     path_to_lake = Path(cfg["experiment"]["path_to_experiment"]).resolve()
 

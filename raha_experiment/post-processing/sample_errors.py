@@ -7,7 +7,7 @@ import pandas as pd
 log = logging.getLogger(__name__)
 
 
-@hydra.main(version_base=None, config_path="hydra_configs", config_name="postprocessing")
+@hydra.main(version_base=None, config_path="../hydra_configs", config_name="postprocessing")
 def main(cfg):
     path_to_errors = Path(cfg["retrival"]["error_index_path"]).resolve()
     df = pd.read_csv(path_to_errors)
