@@ -31,7 +31,11 @@ This requires user input and can take a lot of time!
 5. The last step uses the labels to execute the prediction part of Raha. This can be done 
 by running ``python raha_experiment/finish_experiments.py``
    - ``raha.start`` and ``raha.end`` in the file ``raha_experiment/hydra_configs/base.yaml`` also control the execution here.
-
+6. The results of Raha can then further be used by:
+   - ``python raha_experiment/post-processing/retrieve_detected_errors.py``: to collect all detected errors into one csv
+   - ``python raha_experiment/post-processing/sample_errors.py``: to sample an amount of errors from the csv that contains all errors
+   - ``python raha_experiment/post-processing/retrieve_labels.py``: to collect all user labels to allow others to see 
+   what has been labeled (to ensure consistency)
 ## Experiment
 
 The configs are configured for the experiment run in the paper. Only the config at 
