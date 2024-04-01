@@ -1,4 +1,4 @@
-# EDS-Baselines Precision Experiments
+# Matelda-Baselines Precision Experiments
 This repository contains code that performs the precision experiment of Raha on data lakes with no ground truth. 
 Specifically, Raha needed to be adapted to allow efficient experiment execution by grouping all user labeling into one step.
 
